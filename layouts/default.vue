@@ -7,7 +7,12 @@
 
 
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Amatic+SC:700');
 
+  body{
+    font-family: 'Amatic SC', cursive;
+    font-size: 24px;
+  }
 </style>
 
 

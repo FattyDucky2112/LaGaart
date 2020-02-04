@@ -1,21 +1,41 @@
 <template>
   <div>
     <div class="banner">
-      <transition-group name="fade" mode="in-out">
-        <div v-for="(slide, index) of slides" :key="index" :style="{ backgroundImage: `url(${slide.image})` }" class="background-image" v-show="lastIndex === index"></div>
+      <div v-for="(slide, index) of banners" :key="`item-${index}`" :style="{ backgroundImage: `url(${slide.image})` }" class="preload"></div>
+      <transition-group appear name="fade">
+        <div v-for="(slide, index) of banners" :key="`item-${index}`" :style="{ backgroundImage: `url(${slide.image})` }" class="background-image" v-if="currentIndex === index"></div>
       </transition-group>
+    </div>
+
+    <div class="imagemenu">
+      <div v-for="(menuimage, index) of menuimages" :key="`item-${index}`" :style="{ backgroundImage: `url(${menuimage.image})` }" class="menuimage"></div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   .banner {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
     height: 90vh;
     overflow: hidden;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+// background: linear-gradient(0deg, rgba(255,255,255,0.9808298319327731) 10%, rgba(164,164,164,0.4374124649859944) 38%, rgba(170,170,170,0.49343487394957986) 86%, rgba(0,0,0,0.8827906162464986) 100%);    
+    }
+    
+    .preload {
+      display: none;
+    }
+
+
+    $bg-scale: 1.2;
 
     .background-image {
       position: absolute;
@@ -26,62 +46,103 @@
       left: 0;
       width: 100%;
       height: 100%;
+      transform: scale($bg-scale);
     }
 
-
-    .fade-enter-active {
-      animation: slideimation 5s;
+    .fade-enter-active, .fade-leave-active {
+      transition: all 9s linear, opacity 2.5s linear;
     }
 
-
-    // .fade-enter-active, .fade-leave-active {
-    //   // transition: opacity 2s;
-    //   transition: all 2s;
-    // }
-    // .fade-enter, .fade-leave-to {
-    //   opacity: 0;
-    // }
-
-    // .fade-leave-active {
-    //   transform: scale(1.2);
-    // }
-
-    @keyframes slideimation {
-      0% { transform: scale(1); }
-      60% {  transform: scale(1.25); opacity: 1; }
-      100% { transform: scale(1.25);opacity: 0; }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
     }
 
+    .fade-enter {
+      transform: scale(1);
+    }
 
+    .fade-enter-to {
+      transform: scale($bg-scale);
+      opacity: 1;
+    }
+
+   
   }
+
+  
+
+  .imagemenu{
+    columns: 2;
+    column-gap: 0;
+    margin-top: 151px;
+    
+    .menuimage{
+      position: relative;
+      height: 45vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position-y: 50%;
+
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0;
+        transition: opacity 1s ease;
+        will-change: opacity;
+      }
+
+      &:hover{
+        &:after{
+          opacity: 0.3;
+          
+        }
+      }
+    }
+  }
+
 </style>
 
 <script>
 export default {
   data() {
     return {
-      slides: [
-        {image: require('~/assets/img/1.jpg'), text: 'ajkhaksjhsakjhskj'},
-        {image: require('~/assets/img/2.jpg'), text: 'ajkhaksjhsakjhskj'},
+      banners: [
+        //{image: require('~/assets/img/1.jpg'), text: 'ajkhaksjhsakjhskj'},
+        // {image: require('~/assets/img/4.jpg'), text: 'ajkhaksjhsakj3333hskj'},
+        // {image: require('~/assets/img/2.jpg'), text: 'ajkhaksjhsakj3333hskj'},
+        // {image: require('~/assets/img/3.jpg'), text: 'ajkhaksjhsakj3333hskj'},
+        {image: require('~/assets/img/5.jpg'), text: 'ajkhaksjhsakj3333hskj'},
       ],
-      lastIndex: 0,
-      intervalID: -1
+      currentIndex: 0,
+      intervalID: -1,
+
+      menuimages: [
+        {image: require('~/assets/img/menu1.jpg'), text:'', link:'/details/detail1'},
+        {image: require('~/assets/img/1.jpg'), text:'', link:'/details/detail1'},
+        {image: require('~/assets/img/5.jpg'), text:'', link:'/details/detail1'},
+        {image: require('~/assets/img/2.jpg'), text:'', link:'/details/detail1'},
+      ]
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.intervalID = setInterval(() => {
+      // this.intervalID = setInterval(() => {
         
-        let newIndex = this.lastIndex + 1
+      //   let newIndex = this.currentIndex + 1
 
-        if (newIndex >= this.slides.length) {
-          this.lastIndex = 0
-          return
-        }
+      //   if (newIndex >= this.banners.length) {
+      //     this.currentIndex = 0
+      //     return
+      //   }
         
-        this.lastIndex = newIndex
+      //   this.currentIndex = newIndex
 
-      }, 8000)
+      // }, 8000)
     })
   },
   beforeDestroy() {
