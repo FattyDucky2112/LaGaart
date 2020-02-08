@@ -3,7 +3,7 @@
   <div class="bannersmall">
 
   </div>
-
+<nuxt-link to="/" style="font-size: 9rem;">Startseite</nuxt-link>
   <div class="container showcards">
       <div class="showcard" v-for="(showcard, index) of showcards" :key="`item-${index}`">
         <img :src="showcard.image">
@@ -36,6 +36,7 @@
         width: 100%;
         height: 100%;
         background: rgb(255,255,255);
+        opacity: 0.7;
         background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7539390756302521) 45%, rgba(255,255,255,0.4374124649859944) 100%);
       }
 
