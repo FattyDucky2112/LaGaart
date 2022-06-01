@@ -22,7 +22,7 @@
     "mysql2": "^2.1.0",
     "nuxt": "^2.12.0",
     "nuxt-dropzone": "^1.0.4",
-    "sharp": "^0.24.1",
+    "sharp": "^0.30.5",
     "vue-cookies": "^1.7.0",
     "vue-cool-lightbox": "^1.1.0",
     "vue-masonry": "^0.11.8"
